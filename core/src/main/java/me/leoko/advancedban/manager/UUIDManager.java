@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import java.util.Map.Entry;
+import me.leoko.advancedban.utils.floodgate.Floodgate;
+import me.leoko.advancedban.utils.floodgate.FloodgateHook;
 
 /**
  * The UUID Manager used to resolve and cache the UUIDs.
@@ -16,6 +18,7 @@ import java.util.Map.Entry;
 public class UUIDManager {
     private static UUIDManager instance = null;
     private FetcherMode mode;
+    private final Floodgate floodgate = new FloodgateHook().hook();
     private final Map<String, String> activeUUIDs = new HashMap<>();
     
     private MethodInterface mi() {
@@ -93,6 +96,18 @@ public class UUIDManager {
             } catch (IOException e) {
                 System.out.println("!! Failed fetching UUID of " + name);
                 System.out.println("!! Could not connect to REST-API under " + mi.getString(mi.getConfig(), "UUID-Fetcher.BackUp-API.URL"));
+            }
+        }
+
+        if (uuid == null && floodgate != null) {
+            System.out.println("Trying to fetch Bedrock edition UUID from floodgate...");
+
+            UUID raw = floodgate.getPlayerUUID(name);
+            if (raw != null) {
+                uuid = raw.toString().replaceAll("-", "");
+                activeUUIDs.put(name, uuid);
+            } else {
+                System.out.println("!! Failed fetching UUID of " + name);
             }
         }
 
@@ -193,6 +208,8 @@ public class UUIDManager {
                 return inMemoryName;
             }
         }
+
+        // TODO: floodgate name resolve method.
 
         try (Scanner scanner = new Scanner(new URL("https://api.mojang.com/user/profiles/" + uuid + "/names").openStream(), "UTF-8")) {
             String s = scanner.useDelimiter("\\A").next();

@@ -31,7 +31,12 @@ public class PunishmentTest {
 
     @BeforeAll
     public static void setupUniversal(){
-        Universal.get().setup(new TestMethods(dataFolder));
+        try {
+            Universal.get().setup(new TestMethods(dataFolder));
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Test
