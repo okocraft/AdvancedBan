@@ -318,7 +318,7 @@ public class BungeeMethods implements MethodInterface {
 
     @Override
     public String parseJSON(InputStreamReader json, String key) {
-        JsonElement element = new JsonParser().parse(json);
+        JsonElement element = JsonParser.parseReader(json);
         if (element instanceof JsonNull) {
             return null;
         }
@@ -328,7 +328,7 @@ public class BungeeMethods implements MethodInterface {
 
     @Override
     public String parseJSON(String json, String key) {
-        JsonElement element = new JsonParser().parse(json);
+        JsonElement element = JsonParser.parseString(json);
         if (element instanceof JsonNull) {
             return null;
         }

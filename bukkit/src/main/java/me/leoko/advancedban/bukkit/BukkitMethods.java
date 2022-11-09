@@ -1,5 +1,9 @@
 package me.leoko.advancedban.bukkit;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import me.leoko.advancedban.MethodInterface;
 import me.leoko.advancedban.Universal;
 import me.leoko.advancedban.bukkit.event.PunishmentEvent;
@@ -20,9 +24,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -90,12 +91,11 @@ public class BukkitMethods implements MethodInterface {
             HttpURLConnection request = (HttpURLConnection) new URL(url).openConnection();
             request.connect();
 
-            JSONParser jp = new JSONParser();
-            JSONObject json = (JSONObject) jp.parse(new InputStreamReader(request.getInputStream()));
+            JsonObject json = (JsonObject) JsonParser.parseReader(new InputStreamReader(request.getInputStream()));
 
             String[] keys = key.split("\\|");
             for (int i = 0; i < keys.length - 1; i++) {
-                json = (JSONObject) json.get(keys[i]);
+                json = (JsonObject) json.get(keys[i]);
             }
 
             return json.get(keys[keys.length - 1]).toString();
@@ -294,21 +294,22 @@ public class BukkitMethods implements MethodInterface {
 
     @Override
     public String parseJSON(InputStreamReader json, String key) {
-        try {
-            return ((JSONObject) new JSONParser().parse(json)).get(key).toString();
-        } catch (ParseException | IOException e) {
-            System.out.println("Error -> " + e.getMessage());
+        JsonElement element = JsonParser.parseReader(json);
+        if (element instanceof JsonNull) {
             return null;
         }
+        JsonElement obj = ((JsonObject) element).get(key);
+        return obj != null ? obj.toString().replaceAll("\"", "") : null;
     }
 
     @Override
     public String parseJSON(String json, String key) {
-        try {
-            return ((JSONObject) new JSONParser().parse(json)).get(key).toString();
-        } catch (ParseException e) {
+        JsonElement element = JsonParser.parseString(json);
+        if (element instanceof JsonNull) {
             return null;
         }
+        JsonElement obj = ((JsonObject) element).get(key);
+        return obj != null ? obj.toString().replaceAll("\"", "") : null;
     }
 
     @Override
