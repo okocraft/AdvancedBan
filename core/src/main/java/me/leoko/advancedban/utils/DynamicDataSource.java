@@ -6,7 +6,7 @@ import me.leoko.advancedban.MethodInterface;
 import me.leoko.advancedban.Universal;
 
 public class DynamicDataSource {
-    private HikariConfig config = new HikariConfig();
+    private final HikariConfig config = new HikariConfig();
 
     public DynamicDataSource(boolean preferMySQL) throws ClassNotFoundException {
         MethodInterface mi = Universal.get().getMethods();
@@ -18,8 +18,9 @@ public class DynamicDataSource {
             String properties = mi.getString(mi.getMySQLFile(), "MySQL.Properties", "verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=utf8");
             int port = mi.getInteger(mi.getMySQLFile(), "MySQL.Port", 3306);
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             config.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + dbName + "?"+properties);
+            config.setDriverClassName("com.mysql.cj.jdbc.Driver");
             config.setUsername(usrName);
             config.setPassword(password);
         } else {
