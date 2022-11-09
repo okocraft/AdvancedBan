@@ -1,17 +1,18 @@
 package me.leoko.advancedban.manager;
 
 import me.leoko.advancedban.Universal;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import java.util.zip.GZIPOutputStream;
 
 /**
@@ -53,8 +54,10 @@ public class LogManager {
             calendar.setTimeInMillis(latestLog.lastModified());
             if (day != calendar.get(Calendar.DAY_OF_MONTH) || force) {
                 try {
-                    if (FileUtils.readLines(latestLog, "UTF8").size() <= 0) {
-                        return;
+                    try (Stream<String> lines = Files.lines(latestLog.toPath(), StandardCharsets.UTF_8)) {
+                        if (lines.findAny().isEmpty()) {
+                            return;
+                        }
                     }
                     int filen = 1;
                     while (new File(logsFolder, sdf.format(latestLog.lastModified()) + "-" + filen + ".log.gz").exists()) {

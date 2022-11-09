@@ -5,7 +5,6 @@ import me.leoko.advancedban.manager.*;
 import me.leoko.advancedban.utils.Command;
 import me.leoko.advancedban.utils.InterimData;
 import me.leoko.advancedban.utils.Punishment;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +12,10 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -399,7 +400,7 @@ public class Universal {
             logManager.checkLastLog(false);
         }
         try {
-            FileUtils.writeStringToFile(debugFile, "[" + new SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis()) + "] " + mi.clearFormatting(msg.toString()) + "\n", "UTF8", true);
+            Files.writeString(debugFile.toPath(), "[" + new SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis()) + "] " + mi.clearFormatting(msg.toString()) + "\n", StandardCharsets.UTF_8, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
         } catch (IOException ex) {
             System.out.print("An error has occurred writing to 'latest.log' file.");
             System.out.print(ex.getMessage());
