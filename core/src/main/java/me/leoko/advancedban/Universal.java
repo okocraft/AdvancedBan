@@ -65,7 +65,6 @@ public class Universal {
         this.mi = mi;
         mi.loadFiles();
         logManager = new LogManager();
-        UpdateManager.get().setup();
         UUIDManager.get().setup();
 
         try {
