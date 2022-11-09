@@ -2,9 +2,9 @@ package me.leoko.advancedban.utils.tabcompletion;
 
 import me.leoko.advancedban.MethodInterface;
 import me.leoko.advancedban.Universal;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PunishmentTabCompleter implements TabCompleter {
@@ -23,7 +23,7 @@ public class PunishmentTabCompleter implements TabCompleter {
 
         boolean hiddenTag = false;
         if(args.length > 1 && args[0].equalsIgnoreCase("-s")) {
-            args = ArrayUtils.remove(args, 0);
+            args = Arrays.copyOfRange(args, 1, args.length);
             hiddenTag = true;
         }
 

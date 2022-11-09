@@ -14,8 +14,8 @@ import me.leoko.advancedban.utils.tabcompletion.BasicTabCompleter;
 import me.leoko.advancedban.utils.tabcompletion.CleanTabCompleter;
 import me.leoko.advancedban.utils.tabcompletion.PunishmentTabCompleter;
 import me.leoko.advancedban.utils.tabcompletion.TabCompleter;
-import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -607,11 +607,19 @@ public enum Command {
         }
 
         public void removeArgument(int index) {
-            args = ArrayUtils.remove(args, index);
+            String[] result = new String[args.length - 1];
+
+            for (int i = 0; i < args.length; i++) {
+                if (i != index) {
+                    int pos = i < index ? i : i - 1;
+                    result[pos] = args[i];
+                }
+            }
+            args = result;
         }
 
         public void next() {
-            args = ArrayUtils.remove(args, 0);
+            args = args.length == 1 ? new String[0] : Arrays.copyOfRange(args, 1, args.length);
         }
 
         public boolean hasNext() {
