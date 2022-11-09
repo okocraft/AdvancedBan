@@ -1,5 +1,15 @@
 # AdvancedBan
 
+## This is the hard-forked version by OKOCRAFT
+
+### Changes
+
+- UUID/name resolver for BE players using floodgate
+- Update MySQL driver and other dependencies
+- Reduce jar size
+- Require Java 11 (due to HikariCP updates)
+- Drop RedisBungee support
+- Stop using deprecated APIs
 
 Bukkit- & BungeeCord-Plugin at once <br>
 Check out our [Spigot-Page](https://www.spigotmc.org/resources/advancedban.8695/) for more  information!
@@ -31,7 +41,9 @@ Example Usage from Jitpack:
     <url>https://jitpack.io</url>
   </repository>
 </repositories>
-...
+```
+
+```xml
 <dependency>
   <groupId>com.github.DevLeoko</groupId>
   <artifactId>AdvancedBan</artifactId>
