@@ -11,7 +11,6 @@ import me.leoko.advancedban.manager.UUIDManager;
 import me.leoko.advancedban.utils.Permissionable;
 import me.leoko.advancedban.utils.Punishment;
 import me.leoko.advancedban.utils.tabcompletion.TabCompleter;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -132,8 +131,10 @@ public class BukkitMethods implements MethodInterface {
 
     @Override
     public void setupMetrics() {
+        /*
         Metrics metrics = new Metrics(getPlugin());
         metrics.addCustomChart(new Metrics.SimplePie("MySQL", () -> DatabaseManager.get().isUseMySQL() ? "yes" : "no"));
+         */
     }
 
     @Override

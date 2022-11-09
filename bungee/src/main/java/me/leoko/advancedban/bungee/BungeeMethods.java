@@ -27,7 +27,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import org.bstats.bungeecord.Metrics;
 
 import java.io.File;
 import java.io.IOException;
@@ -153,8 +152,10 @@ public class BungeeMethods implements MethodInterface {
 
     @Override
     public void setupMetrics() {
+        /*
         Metrics metrics = new Metrics(getPlugin());
         metrics.addCustomChart(new Metrics.SimplePie("MySQL", () -> DatabaseManager.get().isUseMySQL() ? "yes" : "no"));
+         */
     }
 
     @Override

@@ -91,12 +91,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bungeecord</artifactId>
             <version>1.5</version>
             <scope>compile</scope>
         </dependency>
+        -->
 
         <dependency>
             <groupId>me.leoko.advancedban</groupId>
