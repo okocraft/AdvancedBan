@@ -1,6 +1,5 @@
 package me.leoko.advancedban.bungee.listener;
 
-import com.imaginarycode.minecraft.redisbungee.RedisBungee;
 import me.leoko.advancedban.Universal;
 import me.leoko.advancedban.bungee.BungeeMain;
 import me.leoko.advancedban.manager.PunishmentManager;
@@ -38,9 +37,6 @@ public class ConnectionListenerBungee implements Listener {
                 }
             }
 
-            if (Universal.isRedis()) {
-                RedisBungee.getApi().sendChannelMessage("advancedban:connection", event.getConnection().getName() + "," + event.getConnection().getAddress().getAddress().getHostAddress());
-            }
             event.completeIntent((BungeeMain) Universal.get().getMethods().getPlugin());
         });
     }

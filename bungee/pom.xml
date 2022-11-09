@@ -19,11 +19,6 @@
             <id>bungeecord-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
-        <!-- RedisBungee -->
-        <repository>
-            <id>md_5-snapshots</id>
-            <url>https://repo.md-5.net/content/repositories/snapshots/</url>
-        </repository>
         <!-- CloudNet -->
         <repository>
             <id>cloudnet3-releases</id>
@@ -81,13 +76,6 @@
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.4</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.imaginarycode.minecraft</groupId>
-            <artifactId>RedisBungee</artifactId>
-            <version>0.3.6-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 

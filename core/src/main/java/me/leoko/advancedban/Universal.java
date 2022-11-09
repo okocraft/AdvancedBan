@@ -31,16 +31,9 @@ public class Universal {
 
     private static Universal instance = null;
 
-    public static void setRedis(boolean redis) {
-        Universal.redis = redis;
-    }
-
     private final Map<String, String> ips = new HashMap<>();
     private MethodInterface mi;
     private LogManager logManager;
-
-    private static boolean redis = false;
-
 
     private final Gson gson = new Gson();
 
@@ -156,10 +149,6 @@ public class Universal {
 
     public Map<String, String> getIps() {
         return ips;
-    }
-
-    public static boolean isRedis() {
-        return redis;
     }
 
     public Gson getGson() {
